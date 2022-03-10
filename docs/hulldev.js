@@ -145,7 +145,7 @@ var triangulation(var rim, var veryfirst, var vertices, var tris){
         var second = rim[first];
         var third  = rim[second];
         var t = [first,second,third];
-        //¤³¤ì¤¬¹ó¤¤ÁªÂò¤Î¾ì¹ç¤¬¤¢¤ê¤¦¤ë¡£check¤òÄÉ²Ã¤¹¤ë¡£
+        //ï¿½ï¿½ï¿½ì¤¬ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Î¾ï¿½ç¤¬ï¿½ï¿½ï¿½ê¤¦ï¿½ë¡£checkï¿½ï¿½ï¿½É²Ã¤ï¿½ï¿½ë¡£
         //check
         var pl = plain(vertices,t);
         while ( pl === null ){
@@ -164,8 +164,8 @@ var triangulation(var rim, var veryfirst, var vertices, var tris){
             tris.push(t);
             return 0;
         }
-        //¤Þ¤ººÇ½é¤Î¸õÊä¤¬¤Ç¤­¤¿¡£
-        //»Ä¤ê¤ÎÅÀ¤¬¤¹¤Ù¤ÆÎ¢¤Ë¤¢¤ë¤³¤È¤ò³ÎÇ§¤¹¤ë¡£
+        //ï¿½Þ¤ï¿½ï¿½Ç½ï¿½Î¸ï¿½ï¿½ä¤¬ï¿½Ç¤ï¿½ï¿½ï¿½ï¿½ï¿½
+        //ï¿½Ä¤ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ù¤ï¿½Î¢ï¿½Ë¤ï¿½ï¿½ë¤³ï¿½È¤ï¿½ï¿½Ç§ï¿½ï¿½ï¿½ë¡£
         var next = rim[third];
         var isconvex = 1;
         while ( next != first ){
@@ -669,7 +669,7 @@ void mouseDragged(){
     }
     if ( (mode == 2) || ( mode == 3 ) ){
 	if ( abs(mouseX - lastx) + abs(mouseY-lasty) < 15 ){
-            //Æ°¤­¤¬¾®¤µ¤¤¾ì¹ç¤Ï¡¢ºï½ü¢ªÄÉ²Ã¤Î½ç¤Ç½èÍý¤¹¤ë¡£
+            //Æ°ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ï¡ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½É²Ã¤Î½ï¿½Ç½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ë¡£
             lastx = mouseX;
             lasty = mouseY;
             if ( mode == 2 ){
@@ -912,7 +912,7 @@ void distanceMatrix(var vertices, var triangles)
             dm[i][j] = 1.0;
         }
     }
-    //¤Þ¤º¶¦Í­ÊÕ¤ÎÉ½¤¬É¬Í×¡£
+    //ï¿½Þ¤ï¿½ï¿½ï¿½Í­ï¿½Õ¤ï¿½É½ï¿½ï¿½É¬ï¿½×¡ï¿½
     var edges = {};
     for(int i=0;i<triangles.length;i++){
         edges[[triangles[i][0],triangles[i][1]]] = i;
