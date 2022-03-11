@@ -516,19 +516,19 @@ function mousePressed() {
         let mindist   = 20*20;
         i = vertices.entrySet().iterator();  // Get an iterator
         while (i.hasNext()) {
-	    me = i.next();
-	    let vtx = me.getValue();
-	    if ( vtx[7] == 1 ){ //frontside
+            const me = i.next();
+            let vtx = me.getValue();
+    	    if ( vtx[7] == 1 ){ //frontside
                 let x = vtx[5];
                 let y = vtx[6];
                 let dx = x - mouseX;
                 let dy = y - mouseY;
                 let dd = dx*dx + dy*dy;
                 if ( dd < mindist ){
-		    candidate = me.getKey();
-		    mindist = dd;
+                    candidate = me.getKey();
+                    mindist = dd;
                 }
-	    }
+    	    }
         }
         if ( candidate >= 0 ){
 	    origin = candidate;
@@ -553,19 +553,19 @@ function mousePressed() {
         let mindist   = 20*20;
         i = vertices.entrySet().iterator();  // Get an iterator
         while (i.hasNext()) {
-	    let me = i.next();
-	    let vtx = me.getValue();
-	    if ( vtx[8] == 1 ){ //frontside
+            const me = i.next();
+            let vtx = me.getValue();
+            if ( vtx[8] == 1 ){ //frontside
                 let x = vtx[9];
                 let y = vtx[10];
                 let dx = x - mouseX;
                 let dy = y - mouseY;
                 let dd = dx*dx + dy*dy;
                 if ( dd < mindist ){
-		    candidate = me.getKey();
-		    mindist = dd;
+                    candidate = me.getKey();
+                    mindist = dd;
                 }
-	    }
+    	    }
         }
         if ( candidate >= 0 ){
 	    origin = candidate;
@@ -726,19 +726,19 @@ function orthographic_panel(vertices, triangles)
     //rotate vertices in advance
     i = vertices.entrySet().iterator();  // Get an iterator
     while (i.hasNext()) {
-        me = i.next();
+        const me = i.next();
         vtx = me.getValue();
-	//rotation around the vertical axis
+    	//rotation around the vertical axis
         //let x0 = vtx[0]*cosa - vtx[1]*sina;//horiz
         //let y0 = vtx[2];                   //vert
-	//let z0 = vtx[0]*sina + vtx[1]*cosa;//depth
+	    //let z0 = vtx[0]*sina + vtx[1]*cosa;//depth
         let x0 = vtx[0]*cosa - vtx[2]*sina;//horiz
         let y0 = vtx[1];                   //vert
-	let z0 = vtx[0]*sina + vtx[2]*cosa;//depth
-	//rotation around the horizontal axis, i.e. 
+        let z0 = vtx[0]*sina + vtx[2]*cosa;//depth
+        //rotation around the horizontal axis, i.e. 
         let nx = x0;                         //horiz
         let ny = y0*cosb + z0*sinb;  //vert
-	let nz =-y0*sinb + z0*cosb;  //depth
+    	let nz =-y0*sinb + z0*cosb;  //depth
         vtx[5] = orthr * nx + orthx;
         vtx[6] = orthr * ny + orthy;
         vtx[7] = 0; //backward
@@ -749,11 +749,11 @@ function orthographic_panel(vertices, triangles)
         //rotate normal
         let x0 = plane[0]*cosa - plane[2]*sina;//horiz
         let y0 = plane[1];                   //vert
-	let z0 = plane[0]*sina + plane[2]*cosa;//depth
-	//rotation around the horizontal axis, i.e. 
+	    let z0 = plane[0]*sina + plane[2]*cosa;//depth
+    	//rotation around the horizontal axis, i.e. 
         let nx = x0;                         //horiz
         let ny = y0*cosb + z0*sinb;  //vert
-	let nz =-y0*sinb + z0*cosb;  //depth
+    	let nz =-y0*sinb + z0*cosb;  //depth
         if ( nz < 0 ){
             fill((int)(255*(-nz)));
             beginShape();
@@ -767,7 +767,7 @@ function orthographic_panel(vertices, triangles)
     }
     i = vertices.entrySet().iterator();  // Get an iterator
     while (i.hasNext()) {
-        me = i.next();
+        const me = i.next();
         vtx = me.getValue();
         if(vtx[7]==1){
             if(me.getKey() == origin){
@@ -787,7 +787,7 @@ function rectilinear_panel(vertices, triangles)
     //rotate vertices in advance
     i = vertices.entrySet().iterator();  // Get an iterator
     while (i.hasNext()) {
-        me = i.next();
+        const me = i.next();
         vtx = me.getValue();
         vtx.length = 11;
         //let ny = vtx[0]*sina + vtx[1]*cosa;
@@ -840,7 +840,7 @@ function rectilinear_panel(vertices, triangles)
     }
     i = vertices.entrySet().iterator();  // Get an iterator
     while (i.hasNext()) {
-        me = i.next();
+        const me = i.next();
         vtx = me.getValue();
         if(vtx[8]==1){
             if ( (0 < vtx[10]) && ( vtx[10] < winy ) &&
@@ -1063,7 +1063,7 @@ function Develop(vertices, triangles, ranges)
         beginShape();
         i = triangles[k][4].entrySet().iterator();  // Get an iterator
         while (i.hasNext()) {
-            Map.Entry me = (Map.Entry)i.next();
+            const me = i.next();
             let vtx = me.getValue();
             vertex((vtx[0]-devoffsetx)*devzoom+devx,(vtx[1]-devoffsety)*devzoom+devy,layer);
 	}
@@ -1080,7 +1080,7 @@ function zenith(width, /*PImage*/ eq)
     let sq = createImage(width,width,ARGB);
 
     for(let i=0;i<sq.pixels.length;i++){
-	color c = color(100,100,200,100);
+	c = color(100,100,200,100);
 	sq.pixels[i] = c;
     }
 
@@ -1094,8 +1094,8 @@ function zenith(width, /*PImage*/ eq)
 	    let euler = cartesian2euler(v);
 	    let sx = (euler[0]/ (2*pi) + 0.5)*eq.width;
 	    let sy = (euler[1] / pi + 0.5)*eq.width/2;
-	    let j = (int)sy*eq.width+(int)sx;
-	    color c = eq.get((int)sx,(int)sy);
+	    let j = int(sy)*eq.width+int(sx);
+	    c = eq.get(int(sx),int(sy));
 	    sq.pixels[i] = c;
 	    i++;
 	}
@@ -1111,7 +1111,7 @@ function nadir(width, /*PImage*/ eq)
     let sq = createImage(width,width,ARGB);
 
     for(let i=0;i<sq.pixels.length;i++){
-	color c = color(100,100,200,100);
+	c = color(100,100,200,100);
 	sq.pixels[i] = c;
     }
 
@@ -1125,8 +1125,8 @@ function nadir(width, /*PImage*/ eq)
 	    let euler = cartesian2euler(v);
 	    let sx = (euler[0]/ (2*pi) + 0.5)*eq.width;
 	    let sy = (euler[1] / pi + 0.5)*eq.width/2;
-	    let j = (int)sy*eq.width+(int)sx;
-	    color c = eq.get((int)sx,(int)sy);
+	    let j = int(sy)*eq.width+int(sx);
+	    c = eq.get(int(sx),int(sy));
 	    sq.pixels[i] = c;
 	    i++;
 	}
@@ -1144,7 +1144,7 @@ function left(width, /*PImage*/ eq)
     let sq = createImage(width,width,ARGB);
 
     for(let i=0;i<sq.pixels.length;i++){
-	color c = color(100,100,200,100);
+	c = color(100,100,200,100);
 	sq.pixels[i] = c;
     }
 
@@ -1158,8 +1158,8 @@ function left(width, /*PImage*/ eq)
 	    let euler = cartesian2euler(v);
 	    let sx = (euler[0]/ (2*pi) + 0.5)*eq.width;
 	    let sy = (euler[1] / pi + 0.5)*eq.width/2;
-	    let j = (int)sy*eq.width+(int)sx;
-	    color c = eq.get((int)sx,(int)sy);
+	    let j = int(sy)*eq.width+int(sx);
+	    c = eq.get(int(sx),int(sy));
 	    sq.pixels[i] = c;
 	    i++;
 	}
@@ -1175,7 +1175,7 @@ function right(width, /*PImage*/ eq)
     let sq = createImage(width,width,ARGB);
 
     for(let i=0;i<sq.pixels.length;i++){
-	color c = color(100,100,200,100);
+	c = color(100,100,200,100);
 	sq.pixels[i] = c;
     }
 
@@ -1189,8 +1189,8 @@ function right(width, /*PImage*/ eq)
 	    let euler = cartesian2euler(v);
 	    let sx = (euler[0]/ (2*pi) + 0.5)*eq.width;
 	    let sy = (euler[1] / pi + 0.5)*eq.width/2;
-	    let j = (int)sy*eq.width+(int)sx;
-	    color c = eq.get((int)sx,(int)sy);
+	    let j = int(sy)*eq.width+int(sx);
+	    c = eq.get(int(sx),int(sy));
 	    sq.pixels[i] = c;
 	    i++;
 	}
@@ -1206,7 +1206,7 @@ function front(width, /*PImage*/ eq)
     let sq = createImage(width,width,ARGB);
 
     for(let i=0;i<sq.pixels.length;i++){
-	color c = color(100,100,200,100);
+	c = color(100,100,200,100);
 	sq.pixels[i] = c;
     }
 
@@ -1220,8 +1220,8 @@ function front(width, /*PImage*/ eq)
 	    let euler = cartesian2euler(v);
 	    let sx = (euler[0]/ (2*pi) + 0.5)*eq.width;
 	    let sy = (euler[1] / pi + 0.5)*eq.width/2;
-	    let j = (int)sy*eq.width+(int)sx;
-	    color c = eq.get((int)sx,(int)sy);
+	    let j = int(sy)*eq.width+int(sx);
+	    c = eq.get(int(sx),int(sy));
 	    sq.pixels[i] = c;
 	    i++;
 	}
@@ -1237,7 +1237,7 @@ function back(width, /*PImage*/ eq)
     let sq = createImage(width,width,ARGB);
 
     for(let i=0;i<sq.pixels.length;i++){
-	color c = color(100,100,200,100);
+	c = color(100,100,200,100);
 	sq.pixels[i] = c;
     }
 
@@ -1251,8 +1251,8 @@ function back(width, /*PImage*/ eq)
 	    let euler = cartesian2euler(v);
 	    let sx = (euler[0]/ (2*pi) + 0.5)*eq.width;
 	    let sy = (euler[1] / pi + 0.5)*eq.width/2;
-	    let j = (int)sy*eq.width+(int)sx;
-	    color c = eq.get((int)sx,(int)sy);
+	    let j = int(sy)*eq.width+int(sx);
+	    c = eq.get(int(sx),int(sy));
 	    sq.pixels[i] = c;
 	    i++;
 	}
@@ -1513,28 +1513,28 @@ function subdivide1(v0, v1, v2, thres)
     if ( min( d01, d12, d20 ) > thres ){
     //if ( max( d01, d12, d20 ) > thres ){
 	//quad division
-	let v01 = [(v0[0]+v1[0])/2, (v0[1]+v1[1])/2, (v0[2]+v1[2])/2];
-	let v12 = [(v1[0]+v2[0])/2, (v1[1]+v2[1])/2, (v1[2]+v2[2])/2];
-	let v20 = [(v2[0]+v0[0])/2, (v2[1]+v0[1])/2, (v2[2]+v0[2])/2];
+        let v01 = [(v0[0]+v1[0])/2, (v0[1]+v1[1])/2, (v0[2]+v1[2])/2];
+        let v12 = [(v1[0]+v2[0])/2, (v1[1]+v2[1])/2, (v1[2]+v2[2])/2];
+        let v20 = [(v2[0]+v0[0])/2, (v2[1]+v0[1])/2, (v2[2]+v0[2])/2];
         let euler = cartesian2euler(normalize(v01));
         v01[3] = (euler[0]/ (2*pi) + 0.5);
         v01[4] = (euler[1] / pi + 0.5);
-        let euler = cartesian2euler(normalize(v12));
+        euler = cartesian2euler(normalize(v12));
         v12[3] = (euler[0]/ (2*pi) + 0.5);
         v12[4] = (euler[1] / pi + 0.5);
-        let euler = cartesian2euler(normalize(v20));
+        euler = cartesian2euler(normalize(v20));
         v20[3] = (euler[0]/ (2*pi) + 0.5);
         v20[4] = (euler[1] / pi + 0.5);
-	v01[5] = (v0[5]+v1[5])/2;
-	v01[6] = (v0[6]+v1[6])/2;
-	v12[5] = (v1[5]+v2[5])/2;
-	v12[6] = (v1[6]+v2[6])/2;
-	v20[5] = (v2[5]+v0[5])/2;
-	v20[6] = (v2[6]+v0[6])/2;
-	subdivide1(v0,v01,v20,thres);
-	subdivide1(v1,v12,v01,thres);
-	subdivide1(v2,v20,v12,thres);
-	subdivide1(v01,v12,v20,thres);
+        v01[5] = (v0[5]+v1[5])/2;
+        v01[6] = (v0[6]+v1[6])/2;
+        v12[5] = (v1[5]+v2[5])/2;
+        v12[6] = (v1[6]+v2[6])/2;
+        v20[5] = (v2[5]+v0[5])/2;
+        v20[6] = (v2[6]+v0[6])/2;
+        subdivide1(v0,v01,v20,thres);
+        subdivide1(v1,v12,v01,thres);
+        subdivide1(v2,v20,v12,thres);
+        subdivide1(v01,v12,v20,thres);
     }
     else if ( d01 == max(d01,d12,d20) && d01 > thres ){
 	//bidivision
@@ -1542,10 +1542,10 @@ function subdivide1(v0, v1, v2, thres)
         let euler = cartesian2euler(normalize(v01));
         v01[3] = (euler[0]/ (2*pi) + 0.5);
         v01[4] = (euler[1] / pi + 0.5);
-	v01[5] = (v0[5]+v1[5])/2;
-	v01[6] = (v0[6]+v1[6])/2;
-	subdivide1(v2,v0,v01,thres);
-	subdivide1(v01,v1,v2,thres);
+        v01[5] = (v0[5]+v1[5])/2;
+        v01[6] = (v0[6]+v1[6])/2;
+        subdivide1(v2,v0,v01,thres);
+        subdivide1(v01,v1,v2,thres);
     }
     else if ( d12 == max(d01,d12,d20) && d12 > thres ){
 	//bidivision
@@ -1553,21 +1553,21 @@ function subdivide1(v0, v1, v2, thres)
         let euler = cartesian2euler(normalize(v12));
         v12[3] = (euler[0]/ (2*pi) + 0.5);
         v12[4] = (euler[1] / pi + 0.5);
-	v12[5] = (v1[5]+v2[5])/2;
-	v12[6] = (v1[6]+v2[6])/2;
-	subdivide1(v0,v1,v12,thres);
-	subdivide1(v12,v2,v0,thres);
+        v12[5] = (v1[5]+v2[5])/2;
+        v12[6] = (v1[6]+v2[6])/2;
+        subdivide1(v0,v1,v12,thres);
+        subdivide1(v12,v2,v0,thres);
     }
     else if ( d20 == max(d01,d12,d20) && d20 > thres ){
 	//bidivision
-	let v20 = [(v2[0]+v0[0])/2, (v2[1]+v0[1])/2, (v2[2]+v0[2])/2];
+    	let v20 = [(v2[0]+v0[0])/2, (v2[1]+v0[1])/2, (v2[2]+v0[2])/2];
         let euler = cartesian2euler(normalize(v20));
         v20[3] = (euler[0]/ (2*pi) + 0.5);
         v20[4] = (euler[1] / pi + 0.5);
-	v20[5] = (v2[5]+v0[5])/2;
-	v20[6] = (v2[6]+v0[6])/2;
-	subdivide1(v1,v2,v20,thres);
-	subdivide1(v20,v0,v1,thres);
+        v20[5] = (v2[5]+v0[5])/2;
+        v20[6] = (v2[6]+v0[6])/2;
+        subdivide1(v1,v2,v20,thres);
+        subdivide1(v20,v0,v1,thres);
     }
     else{
 	//boundary treatment required.
@@ -1576,27 +1576,27 @@ function subdivide1(v0, v1, v2, thres)
 	    //orthographic panel
 	    fill(255);
 	    //stroke(0);
-            noStroke();
+        noStroke();
 	    beginShape(TRIANGLE);
-	    texture(online);
-	    vertex(v0[5],v0[6], layer, v0[3],v0[4]);
-	    vertex(v1[5],v1[6], layer, v1[3],v1[4]);
-	    vertex(v2[5],v2[6], layer, v2[3],v2[4]);
-            endShape();
+            texture(online);
+            vertex(v0[5],v0[6], layer, v0[3],v0[4]);
+            vertex(v1[5],v1[6], layer, v1[3],v1[4]);
+            vertex(v2[5],v2[6], layer, v2[3],v2[4]);
+        endShape();
 	}
 	else{
 	    if ( thres > 10 ){
 	    	subdivide1(v0,v1,v2,thres/2);
 	    }
 	    else{
-		//seam
-		fill(0);
-		noStroke();
-		beginShape();
-		vertex(v0[5],v0[6],layer);
-		vertex(v1[5],v1[6],layer);
-		vertex(v2[5],v2[6],layer);
-		endShape(CLOSE);
+            //seam
+            fill(0);
+            noStroke();
+            beginShape();
+            vertex(v0[5],v0[6],layer);
+            vertex(v1[5],v1[6],layer);
+            vertex(v2[5],v2[6],layer);
+            endShape(CLOSE);
 	    }
 	}
     }
@@ -1606,17 +1606,17 @@ function subdivide1(v0, v1, v2, thres)
 function subdivide_og(vertices, triangles, thres)
 {
     for(let i=0;i<triangles.length;i++){
-	let t = triangles[i];
+    	let t = triangles[i];
         let plane = triangles[i][3];
         //rotate normal
         //let ny = plane[0]*sina + plane[1]*cosa;
         let x0 = plane[0]*cosa - plane[2]*sina;//horiz
         let y0 = plane[1];                   //vert
-	let z0 = plane[0]*sina + plane[2]*cosa;//depth
-	//rotation around the horizontal axis, i.e. 
+        let z0 = plane[0]*sina + plane[2]*cosa;//depth
+        //rotation around the horizontal axis, i.e. 
         let nx = x0;                         //horiz
         let ny = y0*cosb + z0*sinb;  //vert
-	let nz =-y0*sinb + z0*cosb;  //depth
+    	let nz =-y0*sinb + z0*cosb;  //depth
         if ( nz < 0 ){
 	    let v0 = vertices.get(t[0]);
 	    let v1 = vertices.get(t[1]);
@@ -1643,22 +1643,22 @@ function subdivide_dev(vertices, triangles, ranges, thres)
 	let vs = [];
         i = triangles[k][4].entrySet().iterator();  // Get an iterator
         while (i.hasNext()) {
-            Map.Entry me = (Map.Entry)i.next();
-	    let v = [];
-	    let vtx = me.getKey();
-	    //println(vtx);
-	    vtx = vertices.get(vtx);
+            const me = i.next();
+            let v = [];
+            let vtx = me.getKey();
+            //println(vtx);
+            vtx = vertices.get(vtx);
             let pos = me.getValue();
-	    v[0] = vtx[0];//position on the sphere
-	    v[1] = vtx[1];
-	    v[2] = vtx[2];
-	    v[3] = vtx[3];//position on the equirectangular image
-	    v[4] = vtx[4];
+            v[0] = vtx[0];//position on the sphere
+            v[1] = vtx[1];
+            v[2] = vtx[2];
+            v[3] = vtx[3];//position on the equirectangular image
+            v[4] = vtx[4];
             v[5] = (pos[0]-devoffsetx)*devzoom + devx;//position on the screen
-	    v[6] = (pos[1]-devoffsety)*devzoom + devy;
-	    vs.push(v);
+            v[6] = (pos[1]-devoffsety)*devzoom + devy;
+            vs.push(v);
         }
-	subdivide1(vs[0],vs[1],vs[2], thres);
+    	subdivide1(vs[0],vs[1],vs[2], thres);
     }
 }
 
@@ -1675,17 +1675,17 @@ function draw() {  // this is run repeatedly.
 	    return;
 	}
 	else if ( mode == 5 ){
-            background(255);
+        background(255);
 	    updated = 0;
 	    devx = devLx;
 	    devy = devLy;
 	    devw = devLw;
 	    devh = devLh;
-            let dm = distanceMatrix(vertices, triangles);
-            links = spanningTree(dm, triangles);
-            ranges   = LocatePanels(vertices, triangles, links);
+        let dm = distanceMatrix(vertices, triangles);
+        links = spanningTree(dm, triangles);
+        ranges   = LocatePanels(vertices, triangles, links);
 	    subdivide_dev(vertices, triangles, ranges, 8.0);
-            Develop(vertices, triangles, ranges);
+        Develop(vertices, triangles, ranges);
 	    return;
 	}
         background(255);
@@ -1694,18 +1694,18 @@ function draw() {  // this is run repeatedly.
         updated = 0;
 	if ( frontimg == 0 ){
 	    if ( online.width /2 < cube ){
-		cube = online.width /2 ;
+    		cube = online.width /2 ;
 	    }
 	    frontimg = front(40, online);
 	    let w = 80;
 	    while ( w < cube ){
-		idlejob.push(["RefreshFront",w]);
-		idlejob.push(["RefreshBack",w]);
-		idlejob.push(["RefreshLeft",w]);
-		idlejob.push(["RefreshRight",w]);
-		idlejob.push(["RefreshZenith",w]);
-		idlejob.push(["RefreshNadir",w]);
-		w += w;
+            idlejob.push(["RefreshFront",w]);
+            idlejob.push(["RefreshBack",w]);
+            idlejob.push(["RefreshLeft",w]);
+            idlejob.push(["RefreshRight",w]);
+            idlejob.push(["RefreshZenith",w]);
+            idlejob.push(["RefreshNadir",w]);
+    		w += w;
 	    }
 	}
 	if ( leftimg == 0 ){
@@ -1729,12 +1729,12 @@ function draw() {  // this is run repeatedly.
 	drawBack(backimg);
 	drawRight(rightimg);
 	drawNadir(nadirimg);
-        rectilinear_panel(vertices, triangles);
-        orthographic_panel(vertices, triangles);
-        let dm = distanceMatrix(vertices, triangles);
-        links = spanningTree(dm, triangles);
-        ranges   = LocatePanels(vertices, triangles, links);
-        Develop(vertices, triangles, ranges);
+    rectilinear_panel(vertices, triangles);
+    orthographic_panel(vertices, triangles);
+    let dm = distanceMatrix(vertices, triangles);
+    links = spanningTree(dm, triangles);
+    ranges   = LocatePanels(vertices, triangles, links);
+    Develop(vertices, triangles, ranges);
 
 	buttonZoom.Draw();
 	buttonMap.Draw();
@@ -1748,11 +1748,11 @@ function draw() {  // this is run repeatedly.
 	//println(jobname);
 	if (jobname == "Redraw"){
 	    if ( mapOrthographic )
-		subdivide_og(vertices, triangles, 20.0);
-            orthographic_panel(vertices, triangles);
-            if ( mapDevelop )
-		subdivide_dev(vertices, triangles, ranges, 20.0);
-            Develop(vertices, triangles, ranges);
+    		subdivide_og(vertices, triangles, 20.0);
+        orthographic_panel(vertices, triangles);
+        if ( mapDevelop )
+            subdivide_dev(vertices, triangles, ranges, 20.0);
+        Develop(vertices, triangles, ranges);
 	}
 	else if (jobname == "RefreshFront"){
 	    frontimg = front(job[1], online);
